@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventHub — Discover. Book. Experience.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="navbar-wrap">
+  <nav class="container navbar navbar-expand-lg">
+    <a class="brand" href="#" data-page="home"><span class="brand-icon">E</span> Event<span>Hub</span></a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navLinks" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navLinks">
+      <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <a class="nav-link active" href="#" data-page="home">Explore events</a>
+        <a class="nav-link" href="#" data-page="tickets">My tickets</a>
+        <a class="nav-link admin-link d-none" href="#" data-page="admin">Admin dashboard</a>
+        <button id="authBtn" class="btn btn-outline-light btn-sm ms-lg-2">Sign in</button>
+        <button id="logoutBtn" class="btn btn-outline-light btn-sm d-none">Sign out</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="homePage">
+    <section class="hero container">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> YOUR NEXT GREAT MEMORY STARTS HERE</div>
+        <h1>Find your people.<br><span>Feel the moment.</span></h1>
+        <p>Discover experiences worth leaving home for. Find your event, choose your seat, and make it happen.</p>
+        <a href="#eventsSection" class="btn btn-primary btn-lg">Explore events <span>↘</span></a>
+        <div class="hero-stats"><div><strong id="statEvents">—</strong><small>Events to explore</small></div><div><strong>Easy</strong><small>Secure seat booking</small></div><div><strong>Instant</strong><small>Digital tickets</small></div></div>
+      </div>
+      <div class="hero-art"><div class="art-glow"></div><div class="art-card card-back">✦<small>LIVE EXPERIENCES</small></div><div class="art-card card-front"><span class="art-tag">MAKE IT A NIGHT</span><div class="art-emoji">♫</div><strong>Memories<br>in the making.</strong><span class="art-lines">● ● ● ● ●</span></div><div class="floating-note">✦ Good times<br><small>are closer than you think</small></div></div>
+    </section>
+    <section class="container events-section" id="eventsSection">
+      <div class="section-heading"><div><div class="eyebrow">WHAT'S HAPPENING</div><h2>Explore <span>events</span></h2><p>Find something you'll remember.</p></div><div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search events, venues..."></div></div>
+      <div class="category-row" id="categoryRow">
+        <button class="category-chip selected" data-category="">All events</button><button class="category-chip" data-category="Technology">Technology</button><button class="category-chip" data-category="Music">Music</button><button class="category-chip" data-category="Business">Business</button><button class="category-chip" data-category="Comedy">Comedy</button><button class="category-chip" data-category="Workshop">Workshop</button><button class="category-chip" data-category="Gaming">Gaming</button>
+      </div>
+      <div id="eventsGrid" class="events-grid"><div class="loading">Loading events…</div></div>
+    </section>
+  </section>
+
+  <section id="ticketsPage" class="container inner-page d-none">
+    <div class="eyebrow">YOUR EVENT HISTORY</div><h2>My <span>tickets</span></h2><p class="muted">Your confirmed bookings, all in one place.</p>
+    <div id="ticketsList" class="tickets-list"></div>
+  </section>
+
+  <section id="adminPage" class="container inner-page d-none">
+    <div class="eyebrow">EVENTHUB CONTROL CENTER</div><h2>Admin <span>dashboard</span></h2><p class="muted">Manage events and review bookings.</p>
+    <div id="adminStats" class="stats-grid"></div>
+    <div class="admin-layout">
+      <div class="panel"><h3 id="eventFormTitle">Create an event</h3><form id="eventForm" class="event-form">
+        <input type="hidden" id="editEventId">
+        <label>Event title<input id="eventTitle" required placeholder="e.g. Developer Conference"></label>
+        <div class="form-two"><label>Category<select id="eventCategory"><option>Technology</option><option>Music</option><option>Business</option><option>Comedy</option><option>Workshop</option><option>Gaming</option><option>Other</option></select></label><label>Ticket price (₹)<input id="eventPrice" type="number" min="0" required value="299"></label></div>
+        <label>Description<textarea id="eventDescription" required rows="3" placeholder="What makes this event special?"></textarea></label>
+        <label>Venue<input id="eventVenue" required placeholder="Venue and city"></label>
+        <div class="form-two"><label>Date<input id="eventDate" type="date" required></label><label>Time<input id="eventTime" type="time" required value="10:00"></label></div>
+        <div class="form-two"><label>Total seats<input id="eventSeats" type="number" min="1" max="500" required value="40"></label><label>Image URL<input id="eventImage" type="url" placeholder="https://..."></label></div>
+        <div class="form-actions"><button class="btn btn-primary" type="submit" id="saveEventBtn">Save event</button><button class="btn btn-secondary d-none" type="button" id="cancelEditBtn">Cancel edit</button></div>
+      </form></div>
+      <div class="panel"><h3>Manage events</h3><div id="adminEvents" class="admin-events"></div></div>
+    </div>
+    <div class="panel bookings-panel"><h3>All bookings</h3><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Booking</th><th>Customer</th><th>Event</th><th>Seats</th><th>Total</th><th>Payment / booking status</th></tr></thead><tbody id="adminBookings"></tbody></table></div></div>
+  </section>
+</main>
+
+<footer><div class="container footer-inner"><a class="brand" href="#" data-page="home"><span class="brand-icon">E</span> Event<span>Hub</span></a><p>Made for moments that matter. <span>© 2026 EventHub Project 32</span></p></div></footer>
+
+<div class="modal fade" id="authModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content app-modal"><button class="modal-close" data-bs-dismiss="modal" aria-label="Close">×</button><div class="eyebrow">WELCOME TO EVENTHUB</div><h2 id="authTitle">Sign in</h2><p class="muted" id="authSubtitle">Pick up where your next experience begins.</p><form id="authForm"><div id="nameField" class="mb-3 d-none"><label class="form-label">Full name</label><input id="authName" class="form-control" autocomplete="name"></div><div id="roleField" class="mb-3"><label class="form-label">Sign in as</label><select id="authRole" class="form-control"><option value="user">Customer</option><option value="admin">Administrator</option></select></div><div class="mb-3"><label class="form-label">Email address</label><input id="authEmail" type="email" class="form-control" required autocomplete="email"></div><div class="mb-3"><label class="form-label">Password</label><input id="authPassword" type="password" class="form-control" required minlength="6" autocomplete="current-password"></div><button class="btn btn-primary w-100" id="authSubmit" type="submit">Sign in</button></form><p class="auth-switch"><span id="authSwitchText">New to EventHub?</span> <button id="authSwitch" type="button">Create an account</button></p></div></div></div>
+
+<div class="modal fade" id="seatModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content app-modal seat-modal"><button class="modal-close" data-bs-dismiss="modal" aria-label="Close">×</button><div id="seatEventInfo"></div><div class="screen-label">SCREEN / STAGE</div><div class="seat-map" id="seatMap"></div><div class="seat-legend"><span><i class="seat-dot available"></i> Available</span><span><i class="seat-dot selected"></i> Selected</span><span><i class="seat-dot booked"></i> Booked</span></div><div class="payment-box"><h3>Payment method</h3><div class="payment-options"><label class="payment-option"><input type="radio" name="paymentMethod" value="UPI" checked><span>📱</span><b>UPI</b><small>GPay / PhonePe / Paytm</small></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Card"><span>💳</span><b>Card</b><small>Credit / Debit</small></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Net banking"><span>🏦</span><b>Net banking</b><small>Online banking</small></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Pay at venue"><span>🎟️</span><b>Pay at venue</b><small>Pay at the event</small></label></div><p class="payment-notice">Demo checkout only: no money is charged and no card or UPI details are collected. Connect a payment gateway for real payments.</p></div><div class="booking-bottom"><div><small>Selected seats</small><strong id="selectedSeatsLabel">None</strong></div><div><small>Total amount</small><strong id="selectedTotal">₹0</strong></div><button class="btn btn-primary" id="confirmBookingBtn">Confirm booking</button></div></div></div></div>
+<div id="toastArea" class="toast-area" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="/app.js"></script>
+</body>
+</html>
+
+

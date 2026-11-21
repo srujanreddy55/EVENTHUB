@@ -1,0 +1,11 @@
+{
+  "name": "eventhub-project-32",
+  "version": "1.0.0",
+  "description": "EventHub Event Ticket Booking System - Project 32",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node server.js" },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}
